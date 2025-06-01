@@ -1,0 +1,37 @@
+FROM pytorch/pytorch:2.2.1-cuda12.1-cudnn8-devel
+
+# Install base apt packages
+RUN apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    ffmpeg \
+    libsm6 \
+    libxext6 \
+    git \
+    default-jre \
+    ninja-build \
+    libglib2.0-0 \
+    libxrender-dev \
+    libopenblas-dev \
+    nano \
+    openssh-server \
+    screen \
+    wget \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Miniconda
+RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /tmp/miniconda.sh \
+    && bash /tmp/miniconda.sh -b -p /opt/conda \
+    && rm /tmp/miniconda.sh
+
+# Add Miniconda to PATH
+ENV PATH="/opt/conda/bin:${PATH}"
+
+# Set working directory
+WORKDIR /workspace
+
+# Command to run when container starts
+CMD ["/bin/bash"]
+
+
+

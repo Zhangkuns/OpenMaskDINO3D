@@ -1,0 +1,262 @@
+[
+    {
+        "scene_id": "scene0011_00",
+        "gt_id": 1,
+        "pred_id": 14,
+        "qid": 0,
+        "prompt": "Identify the ID of the object that closely resembles the description \"there are brwon wooden cabinets. placed on the side of the kitchen\".",
+        "pred": "D.",
+        "ref_captions": [
+            "<OBJ014>."
+        ],
+        "type_info": 0,
+        "spiou": 0.0
+    },
+    {
+        "scene_id": "scene0011_00",
+        "gt_id": 1,
+        "pred_id": 14,
+        "qid": 0,
+        "prompt": "Kindly provide the ID of the object that closely matches the description \"there is a set of bottom kitchen cabinets in the room. it has a microwave in the middle of it\".",
+        "pred": "N.",
+        "ref_captions": [
+            "<OBJ014>."
+        ],
+        "type_info": 0,
+        "spiou": 0.0
+    },
+    {
+        "scene_id": "scene0011_00",
+        "gt_id": 1,
+        "pred_id": 14,
+        "qid": 0,
+        "prompt": "Kindly provide the ID of the object that closely matches the description \"there is a set of bottom kitchen cabinets in the room. there is a microwave in the middle of them\".",
+        "pred": "1.",
+        "ref_captions": [
+            "<OBJ014>."
+        ],
+        "type_info": 0,
+        "spiou": 0.0
+    },
+    {
+        "scene_id": "scene0011_00",
+        "gt_id": 1,
+        "pred_id": 14,
+        "qid": 0,
+        "prompt": "What is the ID of the object that matches the description \"brown kitchen cabinets, the top is decorated with marble layers it is placed on the left in the direction of view. the right are 4 brown chairs\"?",
+        "pred": "C.",
+        "ref_captions": [
+            "<OBJ014>."
+        ],
+        "type_info": 0,
+        "spiou": 0.0
+    },
+    {
+        "scene_id": "scene0011_00",
+        "gt_id": 1,
+        "pred_id": 14,
+        "qid": 0,
+        "prompt": "What is the ID of the object that matches the description \"the kitchen cabinets are located along the right wall. they are below the counter top. the kitchen cabinets are located to the right of the table and chairs\"?",
+        "pred": "N.",
+        "ref_captions": [
+            "<OBJ014>."
+        ],
+        "type_info": 0,
+        "spiou": 0.0
+    },
+    {
+        "scene_id": "scene0011_00",
+        "gt_id": 2,
+        "pred_id": 23,
+        "qid": 0,
+        "prompt": "Share the ID of the object that best corresponds to the description \"this is a long table. there are  three brown chairs behind it\".",
+        "pred": "Pn.",
+        "ref_captions": [
+            "<OBJ023>."
+        ],
+        "type_info": 0,
+        "spiou": 0.0
+    },
+    {
+        "scene_id": "scene0011_00",
+        "gt_id": 2,
+        "pred_id": 23,
+        "qid": 0,
+        "prompt": "What is the ID of the object that aligns with the description \"this is a long table. it is surrounded by chairs\"?",
+        "pred": "c.",
+        "ref_captions": [
+            "<OBJ023>."
+        ],
+        "type_info": 0,
+        "spiou": 0.0
+    },
+    {
+        "scene_id": "scene0011_00",
+        "gt_id": 2,
+        "pred_id": 23,
+        "qid": 0,
+        "prompt": "Share the ID of the object that best fits the description \"there is a large table in the room. it has ten chairs pulled up to it\".",
+        "pred": "N/A.",
+        "ref_captions": [
+            "<OBJ023>."
+        ],
+        "type_info": 0,
+        "spiou": 0.0
+    },
+    {
+        "scene_id": "scene0011_00",
+        "gt_id": 2,
+        "pred_id": 23,
+        "qid": 0,
+        "prompt": "Identify the ID of the object that closely resembles the description \"a brown table, placed in the middle of the room, on the left is 4 brown chairs, on the right are 4 brown chairs. the front is a brown door with light shining on\".",
+        "pred": "C-shaped.",
+        "ref_captions": [
+            "<OBJ023>."
+        ],
+        "type_info": 0,
+        "spiou": 0.0
+    },
+    {
+        "scene_id": "scene0011_00",
+        "gt_id": 2,
+        "pred_id": 23,
+        "qid": 0,
+        "prompt": "Share the ID of the object that best corresponds to the description \"this is a brown table. it is surrounded by quite a few matching chairs\".",
+        "pred": "C-shaped.",
+        "ref_captions": [
+            "<OBJ023>."
+        ],
+        "type_info": 0,
+        "spiou": 0.0
+    },
+    {
+        "scene_id": "scene0011_00",
+        "gt_id": 4,
+        "pred_id": 3,
+        "qid": 0,
+        "prompt": "Share the ID of the object that best corresponds to the description \"this is a brown chair. it's back is to a thin table\".",
+        "pred": "C.",
+        "ref_captions": [
+            "<OBJ003>."
+        ],
+        "type_info": 0,
+        "spiou": 0.0
+    },
+    {
+        "scene_id": "scene0011_00",
+        "gt_id": 4,
+        "pred_id": 3,
+        "qid": 0,
+        "prompt": "Share the ID of the object that best fits the description \"this is a brown chair. it is turned toward the end of the table\".",
+        "pred": "C.",
+        "ref_captions": [
+            "<OBJ003>."
+        ],
+        "type_info": 0,
+        "spiou": 0.0
+    },
+    {
+        "scene_id": "scene0011_00",
+        "gt_id": 4,
+        "pred_id": 3,
+        "qid": 0,
+        "prompt": "Give the ID of the object that most accurately describes the description \"this is a brown chair. it is at a high table\".",
+        "pred": "N/A.",
+        "ref_captions": [
+            "<OBJ003>."
+        ],
+        "type_info": 0,
+        "spiou": 0.0
+    },
+    {
+        "scene_id": "scene0011_00",
+        "gt_id": 4,
+        "pred_id": 3,
+        "qid": 0,
+        "prompt": "Identify the ID of the object that closely resembles the description \"this is a chair with no arms. it is at a high table\".",
+        "pred": "c.",
+        "ref_captions": [
+            "<OBJ003>."
+        ],
+        "type_info": 0,
+        "spiou": 0.0
+    },
+    {
+        "scene_id": "scene0011_00",
+        "gt_id": 4,
+        "pred_id": 3,
+        "qid": 0,
+        "prompt": "Share the ID of the object that best fits the description \"this is a brown chair. it is in front of a thin table\".",
+        "pred": "C.",
+        "ref_captions": [
+            "<OBJ003>."
+        ],
+        "type_info": 0,
+        "spiou": 0.0
+    },
+    {
+        "scene_id": "scene0011_00",
+        "gt_id": 5,
+        "pred_id": 5,
+        "qid": 0,
+        "prompt": "Share the ID of the object that best corresponds to the description \"there is a dark brown wooden and leather chair. placed in the table of the kitchen\".",
+        "pred": "C.",
+        "ref_captions": [
+            "<OBJ005>."
+        ],
+        "type_info": 0,
+        "spiou": 0.0
+    },
+    {
+        "scene_id": "scene0011_00",
+        "gt_id": 5,
+        "pred_id": 5,
+        "qid": 0,
+        "prompt": "Share the ID of the object that best fits the description \"you are looking for a chair on the side of the table facing the ovens. it will be the chair near the rail\".",
+        "pred": "P.",
+        "ref_captions": [
+            "<OBJ005>."
+        ],
+        "type_info": 0,
+        "spiou": 0.0
+    },
+    {
+        "scene_id": "scene0011_00",
+        "gt_id": 5,
+        "pred_id": 5,
+        "qid": 0,
+        "prompt": "What's the ID of the object that corresponds to the description \"you are looking for the chair closest to the front. it is on the right side, right behind the chair leg\"?",
+        "pred": "c.",
+        "ref_captions": [
+            "<OBJ005>."
+        ],
+        "type_info": 0,
+        "spiou": 0.0
+    },
+    {
+        "scene_id": "scene0011_00",
+        "gt_id": 5,
+        "pred_id": 5,
+        "qid": 0,
+        "prompt": "Identify the ID of the object that closely resembles the description \"this is a brown chair. it is to the left of another chair\".",
+        "pred": "Ch.",
+        "ref_captions": [
+            "<OBJ005>."
+        ],
+        "type_info": 0,
+        "spiou": 0.0
+    },
+    {
+        "scene_id": "scene0011_00",
+        "gt_id": 5,
+        "pred_id": 5,
+        "qid": 0,
+        "prompt": "Identify the ID of the object that closely resembles the description \"this is a brown chair. it is at the table\".",
+        "pred": "C.",
+        "ref_captions": [
+            "<OBJ005>."
+        ],
+        "type_info": 0,
+        "spiou": 0.0
+    }
+]

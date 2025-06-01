@@ -1,0 +1,208 @@
+{
+  "anno_root": "annotations",
+  "pc_encoder": "uni3d",
+  "segmentor": "mask3d",
+  "version": "",
+  "gt_feat_file": "annotations/scannet_gt_uni3d_feats.pt",
+  "seg_feat_file": "annotations/scannet_mask3d_uni3d_feats.pt",
+  "seg_all_feat_file": "annotations/scannet_mask3d_uni3d_feats_all.pt",
+  "gt_img_feat_file": "annotations/scannet_gt_videofeats.pt",
+  "seg_img_feat_file": "annotations/scannet_mask3d_videofeats.pt",
+  "seg_all_img_feat_file": "annotations/scannet_mask3d_videofeats_all.pt",
+  "gt_train_attr_file": "annotations/scannet_train_attributes.pt",
+  "gt_val_attr_file": "annotations/scannet_val_attributes.pt",
+  "seg_train_attr_file": "annotations/scannet_mask3d_train_attributes.pt",
+  "seg_val_attr_file": "annotations/scannet_mask3d_val_attributes.pt",
+  "seg_all_attr_file": "annotations/scannet_mask3d_all_attributes.pt",
+  "train_tag": "scan2cap",
+  "val_tag": "scan2cap",
+  "train_file_dict": {
+    "scanrefer": [
+      "annotations/scannet_mask3d_uni3d_feats.pt",
+      "annotations/scannet_mask3d_videofeats.pt",
+      "annotations/scannet_mask3d_train_attributes.pt",
+      "annotations/scanrefer_mask3d_train.json"
+    ],
+    "scan2cap": [
+      "annotations/scannet_mask3d_uni3d_feats.pt",
+      "annotations/scannet_mask3d_videofeats.pt",
+      "annotations/scannet_mask3d_train_attributes.pt",
+      "annotations/scan2cap_mask3d_train.json"
+    ],
+    "obj_align": [
+      "annotations/scannet_mask3d_uni3d_feats.pt",
+      "annotations/scannet_mask3d_videofeats.pt",
+      "annotations/scannet_mask3d_train_attributes.pt",
+      "annotations/obj_align_mask3d_train.json"
+    ],
+    "scanqa": [
+      "annotations/scannet_mask3d_uni3d_feats.pt",
+      "annotations/scannet_mask3d_videofeats.pt",
+      "annotations/scannet_mask3d_train_attributes.pt",
+      "annotations/scanqa_mask3d_train.json"
+    ],
+    "sqa3d": [
+      "annotations/scannet_mask3d_uni3d_feats.pt",
+      "annotations/scannet_mask3d_videofeats.pt",
+      "annotations/scannet_mask3d_train_attributes.pt",
+      "annotations/sqa3d_mask3d_train.json"
+    ]
+  },
+  "val_file_dict": {
+    "scanqa": [
+      "annotations/scannet_mask3d_uni3d_feats.pt",
+      "annotations/scannet_mask3d_videofeats.pt",
+      "annotations/scannet_mask3d_val_attributes.pt",
+      "annotations/scanqa_mask3d_val.json"
+    ],
+    "scanrefer": [
+      "annotations/scannet_mask3d_uni3d_feats.pt",
+      "annotations/scannet_mask3d_videofeats.pt",
+      "annotations/scannet_mask3d_val_attributes.pt",
+      "annotations/scanrefer_mask3d_val.json"
+    ],
+    "scan2cap": [
+      "annotations/scannet_mask3d_uni3d_feats.pt",
+      "annotations/scannet_mask3d_videofeats.pt",
+      "annotations/scannet_mask3d_val_attributes.pt",
+      "annotations/scan2cap_mask3d_val.json"
+    ],
+    "sqa3d": [
+      "annotations/scannet_mask3d_uni3d_feats.pt",
+      "annotations/scannet_mask3d_videofeats.pt",
+      "annotations/scannet_mask3d_val_attributes.pt",
+      "annotations/sqa3d_mask3d_val.json"
+    ]
+  },
+  "num_workers": 0,
+  "batch_size": 2,
+  "model": {
+    "low_resource": true,
+    "max_txt_len": 64,
+    "end_sym": "</s>",
+    "system_path": "prompts/system.txt",
+    "instruction_path": "prompts/instruction.txt",
+    "role": [
+      "USER",
+      "ASSISTANT"
+    ],
+    "llama_model_path": "llm/vicuna-7b-v1.5",
+    "input_dim": 1024,
+    "img_input_dim": 1024,
+    "attr_dim": 512,
+    "scene_dim": 256,
+    "pos_dim": 128,
+    "encoder_num_layers": 3,
+    "add_scene_token": false,
+    "add_img_token": true,
+    "use_lora": true,
+    "train_emb": true,
+    "train_img_proj": true,
+    "no_obj": false,
+    "max_obj_num": 100,
+    "bidirection": false,
+    "add_pos_emb": false,
+    "feat_fusion": false,
+    "fuse_with_id": false,
+    "use_objid": true,
+    "use_location_token": false,
+    "mask_decoder": {
+      "media": 32,
+      "num_layer": 6,
+      "d_model": 256,
+      "d_text": 512,
+      "nhead": 8,
+      "hidden_dim": 1024,
+      "dropout": 0.0,
+      "activation_fn": "gelu",
+      "attn_mask": true
+    },
+    "point_extractor": {
+      "input_channel": 6,
+      "blocks": 5,
+      "block_reps": 2,
+      "media": 32,
+      "normalize_before": true,
+      "return_blocks": true,
+      "pool": "mean",
+      "fix_module": [
+        "input_conv",
+        "unet",
+        "output_layer"
+      ],
+      "pretrained": "checkpoints/spf_scannet_512.pth"
+    },
+    "criterion": {
+      "loss_weight": [
+        1.0,
+        1.0,
+        0.5,
+        5.0
+      ],
+      "loss_fun": "focal"
+    }
+  },
+  "lora": {
+    "lora_target_modules": [
+      "q_proj",
+      "v_proj",
+      "k_proj",
+      "o_proj",
+      "gate_proj",
+      "up_proj",
+      "down_proj"
+    ],
+    "lora_r": 16,
+    "lora_alpha": 16,
+    "lora_dropout": 0.05
+  },
+  "optimizer": {
+    "opt": "adamW",
+    "lr": 5e-06,
+    "opt_betas": [
+      0.9,
+      0.999
+    ],
+    "weight_decay": 0.02,
+    "scaler_enable": false,
+    "max_grad_norm": 0.01,
+    "different_lr": {
+      "enable": false,
+      "module_names": [
+        "model.embed_tokens"
+      ],
+      "lr": [
+        0.0005
+      ],
+      "wd": [
+        0.02
+      ]
+    }
+  },
+  "scheduler": {
+    "sched": "cosine",
+    "epochs": 3,
+    "min_lr_multi": 0.01,
+    "warmup_epochs": 0.1
+  },
+  "evaluate": false,
+  "wandb": {
+    "enable": false,
+    "project": "Scene-LLM",
+    "name": "experiment-2025-2-20"
+  },
+  "dist_url": "env://",
+  "device": "cuda",
+  "output_dir": "%OUTPUT_DIR%",
+  "resume": true,
+  "debug": false,
+  "log_freq": 20,
+  "seed": 16,
+  "gpu_num": 1,
+  "save_latest": true,
+  "do_save": false,
+  "auto_resume": true,
+  "pretrained_path": "/workspace/data/checkpoints/ckpt_02_5426.pth",
+  "img_projector_path": "",
+  "distributed": false
+}

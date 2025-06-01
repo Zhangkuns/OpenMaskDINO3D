@@ -1,0 +1,151 @@
+FROM pytorch/pytorch:2.2.1-cuda12.1-cudnn8-devel
+
+# Install base apt packages
+RUN apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y ffmpeg libsm6 libxext6 git default-jre ninja-build libglib2.0-0 libsm6 libxrender-dev libxext6 libopenblas-dev nano openssh-server screen
+
+# Install MinkowskiEngine
+
+RUN git clone https://github.com/daizhirui/MinkowskiEngine.git && \
+    cd MinkowskiEngine && \
+    git checkout ce930eeb403a8e3f99693662ec5ce329a0ab3528 && \
+    TORCH_CUDA_ARCH_LIST="6.1 7.0 8.6 9.0" \
+    pip install . --no-deps \
+    --global-option="--blas=openblas" \
+    --global-option="--force_cuda" && \
+    cd ..
+
+# Install OpenMMLab projects
+RUN pip install --no-deps \
+    mmengine==0.9.0 \
+    mmdet==3.3.0 \
+    mmsegmentation==1.2.0 \
+    mmdet3d==1.4.0 \
+    mmpretrain==1.2.0
+
+# Install mmcv
+RUN git clone https://github.com/open-mmlab/mmcv.git \
+    && cd mmcv \
+    && git reset --hard 780ffed9f3736fedadf18b51266ecbf521e64cf6 \
+    && sed -i "s/'-std=c++14'] if cuda_args else/'-std=c++14', '-arch=sm_90'] if cuda_args else/g" setup.py \
+    && TORCH_CUDA_ARCH_LIST="6.1 7.0 8.6 9.0" \
+    && pip install -v -e . --no-deps \
+    && cd ..
+
+# Install torch-scatter
+# Install PyTorch and related packages first
+RUN pip install \
+    torch==2.1.2 \
+    torchvision==0.16.2 \
+    torchaudio==2.1.2
+
+# Install point cloud and CUDA-specific packages
+RUN git clone https://github.com/erikwijmans/Pointnet2_PyTorch.git && \
+    cd Pointnet2_PyTorch/pointnet2_ops_lib && \
+    # 修改 CUDA 架构设置
+    sed -i 's/os.environ\["TORCH_CUDA_ARCH_LIST"\] = "3.7+PTX;5.0;6.0;6.1;6.2;7.0;7.5"/os.environ\["TORCH_CUDA_ARCH_LIST"\] = "6.0;6.1;7.0;7.5;8.0;8.6"/' setup.py && \
+    python setup.py install && \
+    cd ../.. 
+
+RUN pip install --no-cache-dir \
+    torch-scatter==2.1.2 -f https://data.pyg.org/whl/torch-2.2.1+cu121.html \
+    spconv-cu120==2.3.6 \
+    cumm-cu120==0.4.11 \
+    bitsandbytes==0.44.1
+
+# Install core ML and vision packages
+RUN pip install --no-cache-dir \
+    flash-attn==2.5.6 \
+    deepspeed==0.16.3 \
+    transformers==4.39.3 \
+    peft==0.9.0 \
+    safetensors==0.4.5
+
+# Install ScanNet superpoint segmentator
+RUN git clone https://github.com/Karbo123/segmentator.git \
+    && cd segmentator/csrc \
+    && git reset --hard 76efe46d03dd27afa78df972b17d07f2c6cfb696 \
+    && sed -i "s/set(CMAKE_CXX_STANDARD 14)/set(CMAKE_CXX_STANDARD 17)/g" CMakeLists.txt \
+    && mkdir build \
+    && cd build \
+    && cmake .. \
+        -DCMAKE_PREFIX_PATH=`python -c 'import torch;print(torch.utils.cmake_prefix_path)'` \
+        -DPYTHON_INCLUDE_DIR=$(python -c "from distutils.sysconfig import get_python_inc; print(get_python_inc())") \
+        -DPYTHON_LIBRARY=$(python -c "import distutils.sysconfig as sysconfig; print(sysconfig.get_config_var('LIBDIR'))") \
+        -DCMAKE_INSTALL_PREFIX=`python -c 'from distutils.sysconfig import get_python_lib; print(get_python_lib())'` \
+    && make \
+    && make install \
+    && cd ../../..
+
+# Install LAVIS
+RUN git clone https://github.com/salesforce/LAVIS.git SalesForce-LAVIS \
+    && cd SalesForce-LAVIS \
+    && sed -i 's/open3d==0.13.0/open3d==0.16.0/' requirements.txt \
+    && pip install -r requirements.txt --ignore-requires-python \
+    && pip install -e . --ignore-requires-python \
+    && cd ..
+
+# 安装 google-sparsehash（包含 dense_hash_map）
+RUN apt-get update && apt-get install -y libsparsehash-dev
+
+# Install Reason3D
+# RUN git clone https://github.com/KuanchihHuang/Reason3D.git \
+#     && cd Reason3D/lavis/models/reason3d_models/lib \
+#     && python setup.py develop \
+#     && cd ../../../..
+RUN git clone https://github.com/KuanchihHuang/Reason3D.git && \
+    cd Reason3D/lavis/models/reason3d_models/lib && \
+    # 移除CUDA检查条件
+    sed -i '/if not torch.cuda.is_available(): return$/d' setup.py && \
+    # 添加CUDA架构支持
+    sed -i "s/'nvcc': \[/'nvcc': \['-arch=sm_89',/" setup.py && \
+    python setup.py develop && \
+    cd ../../../..
+
+# Install visualization and data processing packages
+RUN pip install --no-cache-dir \
+    matplotlib==3.9.2 \
+    numpy==1.26.3 \
+    opencv-python==4.10.0.84 \
+    open3d==0.16.0 \
+    open-clip-torch==2.30.0 \
+    plotly==5.24.1 \
+    pandas==1.5.3 \
+    scikit-learn==1.6.1 \
+    scipy==1.12.0
+
+# Install utility packages
+RUN pip install --no-cache-dir \
+    annotated-types==0.7.0 \
+    ccimport==0.4.4 \
+    dash==2.18.2 \
+    Flask==3.0.3 \
+    ftfy==6.3.1 \
+    hjson==3.1.0 \
+    llvmlite==0.43.0 \
+    ninja==1.11.1.2 \
+    numba==0.60.0 \
+    optree==0.10.0 \
+    pccm==0.4.16 \
+    portalocker==3.1.1 \
+    pybind11==2.13.6 \
+    rich==13.9.4 \
+    timm==1.0.14 \
+    triton==2.2.0 \
+    wandb==0.18.7
+
+
+RUN pip install ipdb==0.13.13  \
+    black==25.1.0  \
+    fire==0.7.0  \
+    flake8==7.1.2  \
+    tensorboard==2.19.0  \
+    gorilla-core==0.2.7.8 \
+    trimesh==3.23.1
+
+# 添加 conda 到环境变量
+RUN /bin/bash -c 'echo "export PATH=\"/opt/conda/bin:\$PATH\"" >> ~/.bashrc \
+    && source ~/.bashrc'
+
+
+
