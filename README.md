@@ -3,6 +3,7 @@
 
 ## 🔥 OpenMaskDINO3D
 [![arXiv](https://img.shields.io/badge/arXiv-2405.17427-red)](https://arxiv.org/abs/2506.04837)
+[EMAIL]1412060305@qq.com
 
 ## Overview
 ![OpenMaskDINO3D](OpenMaskDINO3D_arch.png)
